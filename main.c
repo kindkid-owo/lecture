@@ -799,15 +799,53 @@
 
 int main(void)
 {
-	int num;
-	int arr[3][3] =
-	{
+	int i, j, num;
+	int arr[3][3] =	{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 9}
 	};
-	scanf("%d", &num);
-	printf("1: 90deg, 2: 180deg, 3: 270deg ");
-	
+		printf("1: 90deg, 2: 180deg, 3: 270deg ");
+		scanf("%d", &num);
+	{
+		if (num == 1)
+		{
+			for (i = 0; i < 3; i++)
+			{
+				for (j = 0; j < 3; j++)
+				{
+					printf("%d ", arr[2 - j][i]);
+				}
+				printf("\n");
+			}
+		}
+		else if (num == 2)
+		{
+			for (i = 0; i< 3; i++)
+			{
+				for (j = 0; j < 3; j++)
+				{
+					printf("%d ", arr[2 - i][2 - j]);
+				}
+				printf("\n");
+			}
+		}
+		else if (num == 3)
+		{
+			for (i = 0; i < 3; i++)
+			{
+				for (j = 0; j < 3; j++)
+				{
+					printf("%d ", arr[j][2 - i]);
+				}
+				printf("\n");
+			}
+		}
+		else
+			printf("Incorrect Number\n");
+	}	
+	return 0;	
 }
+
+
 
