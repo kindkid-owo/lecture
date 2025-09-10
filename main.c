@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
 
@@ -875,7 +877,7 @@
 // 역참조 연산자 사용하기
 //int main()
 //{
-//	int* numPtr;					// 포인터 변수 선언
+//	int* numPtr;					// 포인터 변수 선언 (헷갈림 방지를 위한 스타표시)
 //	int num1 = 10;					// 정수형 변수를 선언하고 10 저장
 //
 //	numPtr = &num1;					// num1의 메모리 주소를 포인터 변수에 저장
@@ -886,4 +888,401 @@
 //	printf("%d\n", num1);			// 20: 실제 num1의 값도 바뀜
 //
 //	return 0;
+//}
+// 
+
+// 0910 포인터 (=값)
+
+//int main()
+//{
+//	int* numPtr;					// 포인터 변수 선언 (헷갈림 방지를 위한 스타표시)
+//	int num1 = 10;					// 정수형 변수를 선언하고 10 저장
+//
+//	numPtr = &num1;					// num1의 메모리 주소를 포인터 변수에 저장
+//	
+//	*numPtr = 20;					// 역참조 연산자로 메모리 주소에 접근하여 20을 저장
+//
+//	printf("%d\n", *numPtr);		// 20: 역참조 연산자로 메모리 주소에 접근하여 값을 가져옴
+//	printf("%d\n", num1);			// 20: 실제 num1의 값도 바뀜
+//
+//	return 0;
+//}
+
+// 변수 = 메모리 주소를 몰라도 값을 가져오거나 저장할 수 있다
+// & = 주소연산자는 변수의 메모리 주소를 구한다
+// * = 역참조 연산자는 메모리에 저장된 값에 접근하여 값을 가져오고 저장한다
+// ~Ptr = 변수의 메모리 주소를 나타낸다
+// 연습문제
+//int main(void)
+//{
+//	int* numPtr;
+//	int num1 = 10;
+//	int num2 = 20;
+//
+//	numPtr = &num1;
+//	printf("%d\n", *numPtr);
+//
+//	numPtr = &num2;
+//	printf("%d\n", *numPtr);
+//
+//	return 0;
+//}
+
+//int* num;
+//int* numPtr;
+//
+//int main(void)
+//	{
+//	numPtr = &num;
+//	printf("Input number : ");
+//	scanf("%d", &num);
+//	number();
+//	return 0;
+//	}
+//
+//int number()
+//	{
+//	if (*numPtr % 2 == 0)
+//		printf("짝수입니다.");
+//	else
+//		printf("홀수입니다.");
+//	return 0;
+//	}
+// 다른 풀이
+//int isEven(int a);
+//
+//int main(void)
+//{
+//	int num;
+//	printf("Input number : ");
+//	scanf("%d", &num);
+//	if (isEven(num) == 1)
+//		printf("Even.\n");
+//	else
+//		printf("Odd.\n");
+//	return 0;
+//}
+//// 1
+//int isEven(int a)
+//{
+//	if (a % 2 == 0)
+//		return 1;
+//	else
+//		return 0;
+//}
+//// 2
+//void isEven(int a)
+//{
+//		if (a % 2 == 0)
+//		printf("Even.\n");
+//	else
+//		printf("Odd.\n");
+//		return;
+//}
+
+
+//int num1;
+//int num2;
+//
+//
+//int main(void)
+//{
+//	printf("숫자 2개를 입력하세요 : ");
+//	scanf("%d %d", num1, num2);
+//	add(num1, num2);
+//	printf("덧셈의 결과는 %d 입니다 \n", add());
+//	sub(num1, num2);
+//	printf("뺄셈의 결과는 %d 입니다 \n", sub());
+//	mul(num1, num2);
+//	printf("곱셈의 결과는 %d 입니다 \n", mul());
+//	div(num1, num2);
+//	printf("나눗셈의 결과는 %d 입니다 \n", div());
+//
+//}
+//
+//int add()
+//{
+//	return num1 + num2;
+//}
+//int sub()
+//{
+//	return num1 - num2;
+//}
+//int mul()
+//{
+//	return num1 * num2;
+//}
+//int div()
+//{
+//	return num1 / num2;
+//}
+
+//숫자(정수)를 입력받아 그 숫자의 팩토리얼을 계산하는 함수를 작성해보자
+//함수 반환형 void, int 둘다 구현
+//int factorial(int num);
+//
+//int main(void)
+//{
+//	int num;
+//	scanf("%d", &num);
+//	printf("%d! = %d\n", num, factorial(num));
+//	return 0;
+//}
+//int factorial(int num)
+//{
+//	int result = 1;
+//	for (int i = num; i > 0; i--)
+//		result = result * i;
+//	return result;
+//}
+//void v_factorial(int num);
+//
+//int main(void)
+//{
+//	int num;
+//	scanf("%d", &num);
+//	v_factorial(num);
+//}
+//void v_factorial(int num)
+//{
+//	int result = 1;
+//	for (int i = num; i > 0; i--) 
+//
+//		result = result * i;
+//	printf("%d! = %d\n", num, result);
+//
+//}
+
+//int isPrime(int num);
+//int num;
+//int main(void)
+//{
+//	scanf("%d", &num);
+//	if (isPrime(num))
+//		printf("%d은(는) 소수가 아닙니다.\n", num);
+//	else
+//		printf("%d은(는) 소수 입니다.\n", num);
+//}
+//int isPrime(int num)
+//{
+//	int i=0;
+//	for (int i = 0; i <= num; i++);
+//	{
+//		if (i % 2 == 0)
+//			return 0;
+//		else if (i % 3 == 0)
+//			return 0;
+//		else
+//			return 1;
+//	}
+//}
+
+//void startGame();
+//int num;
+//
+//int main(void)
+//{
+//	srand((unsigned int)time(NULL));
+//	startGame();
+//	return 0;
+//}
+//void startGame()
+//{
+//	int x, y;
+//	int result;
+//
+//	for (int i = 0; i < 5; i++)
+//	{
+//		x = (rand() & 8) + 1;
+//		y = (rand() % 8) + 1;
+//		result = x * y;
+//		printf("%d × %d = ? \n", x, y);
+//		scanf("%d", num);
+//
+//		if (num == &result)
+//			printf("정답입니다.\n");
+//		else
+//			printf("오답입니다.\n");
+//		printf("정답은 %d 입니다.\n", result);
+//	}	
+//}
+//rand() % 8 -->0~8 난수
+//rand() % 8 + 1 -->1~9 난수
+
+// 포인터 설명
+
+//int main(void)
+//{
+//	int num1 = 1;
+//	int num2 = 2;
+//
+//	printf("%d %d\n", num1, num2);
+//	test(&num1, &num2);
+//	printf("%d %d\n", num1, num2);
+//}
+//void test(int* num1, int* num2)
+//{
+//	*num1 = 10;
+//	*num2 = 20;
+//}
+
+// 리턴값 유무에 따라 main 함수의 형태
+//
+//int main(void)
+//{
+//	return 0;
+//}
+//void main(void)
+//{
+//}
+//
+// 리턴값 유무에 따라 main 함수의 형태
+//int main(int argc, char* argv[])
+//{
+//	return 0;
+//}
+//void main(int argc, char* argv[])
+//{
+//}
+
+//void swap1(int* n1, int* n2);
+//void swap2(int* n1, int* n2);
+//
+//int main()
+//{
+//	int num1 = 10;
+//	int num2 = 20;
+//
+//	swap1(&num1, &num2);
+//	printf("%d %d\n", num1, num2); // 20, 10
+//
+//	swap2(&num1, &num2);
+//	printf("%d %d\n", num1, num2); // 10, 20
+//}
+////주소에 있는 값으로 변경
+//void swap1(int* n1, int* n2)
+//{
+//	int tmp;
+//	tmp = *n1; // tmp = *n1 = num1 = 10
+//	*n1 = *n2; // *n1 = *n2 = num2 = 20
+//	*n2 = tmp; // *n2 = tmp = *n1 = num1 = 10
+//}
+////주소를 변경하여 값도 변경됨 (정확히는 변경된것처럼 보이는것)
+//void swap2(int* n1, int* n2)
+//{
+//	int* tmp;
+//	tmp = n1; // tmp = n1(0x0000)
+//	n1 = n2;  // n1 = n2(0x0004)
+//	n2 = tmp; // n2 = tmp(=n1(0x0000)
+//}
+
+////배열도 포인터다
+
+//int main(void)
+//{
+//	int arr[10];
+//
+//	printf("%p \n", arr);
+//	printf("%p \n", &arr[0]);
+//	return 0;
+//}
+
+//// 배열의 이름은 그 배열의 첫번째 주소값을 나타낸다.
+
+//int main(void)
+//{
+//	int arr[10];
+//
+//	for (int i = 0; i < 10; i++)
+//		arr[i] = i;
+//
+//	printf("%d \n", *(arr + 1)); // arr[1]
+//	
+//	return 0;
+//}
+
+//void initArray(int* arr);
+//
+//int main(void)
+//{
+//	int arr[10];
+//
+//	initArray(arr);
+//	for (int i = 0; i < 10; i++)
+//		printf("%d ", arr[i]);
+//	printf("\n");
+//
+//	return 0;
+//}
+//
+//void initArray(int* arr)
+//{
+//	for (int i = 0; i < 10; i++)
+//		arr[i] = i + 1 ;
+//}
+
+//// 숫자, 배열크기를 입력해서 최대값 찾기 (ing)
+//int findMax(int* arr, int size)
+//int input1, input2, arr;
+//
+//int main(void)
+//{
+//
+//	printf("숫자를 입력하세요 \n");
+//	scanf("%d ", &input1);
+//	printf("배열의 크기: \n");
+//	scanf("%d ", &input2);
+//	findMax(input1, input2);
+//	printf("최대값: %d\n", findMax(arr, input2));
+//}
+//
+//int findMax(int* arr, int size)
+//{
+//	int max = arr[0];
+//	for (int i = 1; i < size; i++)
+//	{
+//		if (arr[i] > max)
+//			max = arr[i];
+//	}
+//	return max;
+//}
+
+// 문자 - 'c';, 'a';, 'b';
+// 문자열 - "abc";
+
+//int main(void) {
+//	char str[7];
+//	str[0] = 'c';
+//	str[1] = 'o';
+//	str[2] = 'd';
+//	str[3] = 'i';
+//	str[4] = 'n';
+//	str[5] = 'g';
+//	str[6] = '\0'; // NULL
+//
+//	printf("%s", str);
+//}
+//
+//int main(void) {
+//	char str1[7];
+//	str1[0] = 'c';
+//	str1[1] = 'o';
+//	str1[2] = 'd';
+//	str1[3] = 'i';
+//	str1[4] = 'n';
+//	str1[5] = 'g';
+//
+//	printf("%s", str1);	// NULL 발생!
+//}
+//int main(void) {
+//	char str2[7];
+//	str2[0] = 'c';
+//	str2[1] = 'o';
+//	str2[2] = 'd';
+//	str2[3] = 'i';
+//	str2[4] = 'n';
+//	str2[5] = 'g';
+//
+//	for (int i = 0; i <= 5; i++)
+//		printf("%c", str2[i]);	// NULL 방지!
 //}
