@@ -1286,3 +1286,110 @@
 //	for (int i = 0; i <= 5; i++)
 //		printf("%c", str2[i]);	// NULL 방지!
 //}
+
+//int main(void) {
+//	char str3[7];
+//	str3[0] = 'c';
+//	str3[1] = 'o';
+//	str3[2] = 'd';
+//	str3[3] = 'i';
+//	str3[4] = 'n';
+//	str3[5] = 'g';
+//
+//	for (int i = 0; i <= 5; i++)
+//		printf("%d\n", str3[i]);	// NULL 방지!
+//}
+
+// '0' -> 48
+// 'A' -> 65
+// 'a' -> 97
+//int main(void)
+//{
+//	char str4[7];
+//	str4[0] = 97;
+//	str4[1] = 98;
+//	str4[2] = 99;
+//	str4[3] = '\0';
+//
+//	printf("%c", str4[0], str4[1], str4[2]);
+//	printf("%s", str4);
+//}
+
+//Palindrome(회문) -> 앞으로 읽으나, 뒤로 읽으나 같은 문자열 ex) aka, abba, abcba
+//사용자로부터 문자열을 입력받아 회문인지 아닌지 검사하는 프로그램을 만들어보자
+
+//
+//int isPalindrome(char* str, int size);
+//
+//int main(void)
+//{
+//	char str[10];
+//	int len = 0;
+//	printf("input: ");
+//	scanf("%s", str);
+//
+//	for (int i = 0; i < 10; i++)
+//	{
+//		if (str[i] != '\0')
+//			break;
+//		else
+//			len++;
+//	}
+//	printf("%d\n", len);
+//
+//	if (inPalindrome(str, len))
+//		printf("It's palindrome\n");
+//	else
+//		printf("It's Non-palindrome\n");
+//
+//	return 0;
+//}
+//
+//int isPalindrome(char* str, int size)
+//{
+//	int i;
+//
+//	for (i = 0; i < size/2; i++);
+//	{
+//		if (str[i] == str[size - i - 1])
+//			return 0;
+//	}
+//	return 1;
+//}
+
+// 배열에서 특정 문자 개수 세기
+
+//int countChar(char* str, char ch);
+//
+//int main(void)
+//{
+//	char str[100];
+//	char ch;
+//	
+//	printf("input string : ");
+//	scanf("%s", str);							// fflush(stdout) = 여러번 input을 쓸때는 버퍼를 비워서 사용한다;
+//	printf("input character : ");
+//	scanf("%c", &ch);
+//	scanf("%c", &ch);
+//	
+//	printf("%d\n", countChar(str, ch));
+//
+//	return 0;
+//
+//}
+//int countChar(char* str, char ch)
+//{
+//	int count = 0;
+//	for (int i = 0; str[i] != '\0'; i++)
+//	{
+//		if (str[i] == ch)
+//			count++;
+//	}
+//	if (ch == 0)
+//		return 0;
+//	else
+//		return count;
+//	
+//}
+
+
