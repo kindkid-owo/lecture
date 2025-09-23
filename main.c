@@ -1792,3 +1792,218 @@ struct StudentInformation setinfo(struct StudentInformation stdinfo)
 	return stdinfo;
 }
 */
+
+// 0923
+
+/* 구조체 초기화
+struct StudentInformation {
+	char name[100];
+	int studentNumber;
+	int major;
+	char address[100];
+};
+
+int main(void)
+{
+	struct StudentInformation si;
+	char arr[10];
+
+	si.studentNumber = 1;
+	si.major = 2;
+	strcpy(si.name, "Gil-Dong");
+	strcpy(si.address, "Jin-Ju-si");
+	return 0;
+}
+
+*/
+
+/*
+struct StudentInformation {
+	char name[100];
+	int studentNumber;
+	int major;
+	char address[100];
+};
+
+int main(void)
+{
+	struct StudentInformation si = { 0 };
+
+	printStudentInfo(si);
+
+	return 0;
+}
+
+struct StudentInformation printStudentInfo(struct StudentInformation stdinfo)
+{
+	print("%s\n", stdinfo.name);
+	print("%s\n", stdinfo.studentNumber);
+	print("%s\n", stdinfo.major);
+	print("%s\n", stdinfo.address);
+
+	return stdinfo;
+}
+*/
+/*
+struct StudentInformation {
+	char name[100];
+	int studentNumber;
+	int major;
+	char address[100];
+};
+
+int main(void)
+{
+	struct StudentInformation si = { 0 };
+
+	printStudentInfo(&si);
+
+	printf("student Number :%d\n", si.studentNumber);
+
+	return 0;
+}
+
+void printStudentInfo(struct StudentInformation* stdinfo)
+{
+	(*stdinfo).studentNumber = 1;
+}
+*/
+
+/*
+struct StudentInformation {
+	char name[100];
+	int studentNumber;
+	int major;
+	char address[100];
+};
+
+int main(void)
+{
+	struct StudentInformation si = { 0 };
+	int arr[10];
+	
+		for (int i = 0; i < 10; i++)
+		{
+			*(arr + i)= i;		// 같은 표현법 1
+			arr[i] = i;			// 같은 표현법 2
+		}
+		printStudentInfo(&si);
+
+		printf("student Number :%d\n", si.studentNumber);
+
+		return 0;
+}
+
+void printStudentInfo(struct StudentInformation* stdinfo)
+{
+	(*stdinfo).studentNumber = 1;
+}
+*/
+
+/*	일반 변수인경우
+*	p->name
+*	p[0].name
+*	(*(p)).name
+* 
+*	배열일 경우
+*	(p+1)->name
+*	p[1].name
+*	(*(p+1)).name
+*/
+
+/*
+struct StudentScore {
+	char name[100];
+	int stdNum;
+	int score[100];
+};
+
+int main(void)
+{
+	struct StudentScore ss = { 0 };
+	
+	scanf("학생의 이름, 학번, 성적을 입력하세요 : ", &ss);
+	printinfo;
+	
+		
+	return 0;
+}
+void printInfo(struct stdInfo* stdinfo)
+{
+	int i, j;
+
+	struct stdInfo tmp;
+
+	for (i = 0; i < 2; i++)
+	{
+		for (j = i + 1; j < 3; j++)
+		{
+			if (stdinfo[i].score < stdinfo[j].score)
+			{
+				strcpy(tmp.name, stdinfo[i].name);
+				tmp.stdNum = stdinfo[i].stdNum;
+				tmp.score = stdinfo[i].score;
+
+				strcpy(stdinfo[i].name, stdinfo[j].name);
+				stdinfo[i].stdNum = stdinfo[j].stdNum;
+				stdinfo[i].score = stdinfo[j].score;
+
+
+				strcpy(stdinfo[j].name, tmp.name);
+				stdinfo[j].stdNum = tmp.stdNum;
+				stdinfo[j].score = tmp.score;
+			}
+		}
+	}
+	for (i = 0; i < 3; i++)
+		printf("%s, %d, %f\n", stdinfo[i].name, stdinfo[i].stdNum, stdinfo[i].score);
+}
+*/
+
+// 파일 입출력
+
+/*	FILE* f = fopen("myText.txt", "w");
+* 
+*	fputs("Hello World\n", 
+*	
+*	fclosd(f);
+* 
+
+*/
+
+/*
+int main(void)
+{
+	//FILE* f = fopen("myText.txt", "wt/rt");
+	//fputs("Hello World", f);					// 쓰기
+	//fgets(line, 100, f);						// 읽기
+
+	FILE* f = fopen("myText.txt", "rt");		
+	int a, b;
+	char line[100];
+	//fprintf(f, "Hello World !%d", a);
+	fscanf(f, "%s %d %d", line, &a, &b);
+	printf("%s %d %d\n", line, a, b);
+		
+	fclose(f);
+
+	return 0;
+}
+
+*/
+
+
+int main(void)
+{
+	FILE* f = fopen("lotto.txt", "wt");
+	int i;
+
+	srand(time(NULL));
+	
+	for (i = 0; i < 6; i++)
+		fprintf(f, "%d ", rand() % 46);
+	
+	fclose(f);
+
+	return 0;
+}
