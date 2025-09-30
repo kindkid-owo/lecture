@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #define _CRT_SECURE_NO_WARNINGS
+
 #pragma warning(disable:4996)
 
 // ## 0819 
@@ -1992,7 +1993,7 @@ int main(void)
 
 */
 
-
+/*
 int main(void)
 {
 	FILE* f = fopen("lotto.txt", "wt");
@@ -2007,3 +2008,177 @@ int main(void)
 
 	return 0;
 }
+*/
+
+// 빈 칸에 알맞은 알파벳 맞추기
+/*
+#define N_WORDS 7			// 전처리
+
+int main(void)
+{
+	FILE* f = fopen("words.txt", "rt");
+	char wordList[N_WORDS][20];
+
+	int i, randomWord, blank;
+	int menu;
+	char blankedChar, c;
+
+	srand((unsigned int)time(NULL));
+
+	for (i = 0; i < N_WORDS; i++)
+	{
+		fgets(wordList[i], sizeof(wordList) / sizeof(char), f);
+		if(wordList[i][strlen(wordList[i]) - 1] == '\n')
+			wordList[i][strlen(wordList[i]) - 1] = '\0';
+	}
+	while (1)
+	{
+		menu = printMenu();
+
+		if (menu == 1)
+		{
+			randomWord = rand() % N_WORDS;
+			blank = rand() % strlen(wordList[randomWord]);
+			blankedChar = wordList[randomWord][blank];
+			wordList[randomWord][blank] = '_';
+
+			printf("Fill in the blank\n%s\n", wordList[randomWord]);
+
+			i = 0;
+			while (i < 3)
+			{
+				printf("Input character: ");
+				scanf("%c", &c);
+				while (getchar() != '\n');
+
+				if (c == blankedChar)
+				{
+					printf("It's correct\n");
+					wordList[randomWord][blank] = blankedChar;
+					printf("The Full sentence is '%s'\n", wordList[randomWord]);
+					break;
+				}
+				else
+					printf("It's wrong, remain %d. \n", 2 - i);
+				i++;
+			}
+
+		}
+		else if (menu == 2)
+		{
+			system("cls");
+		}
+		else if (menu == 3)
+		{
+			return 0;		// == exit(0 or 1)
+		}
+		else
+		{
+			printf("Please check the number\n");
+		}
+	}
+
+	fclose(f);
+	return 0;
+}
+
+int printMenu()
+{
+	int menu;
+
+	printf("=============================\n");
+	printf("1. Game Start\n");
+	printf("2. Clear\n");
+	printf("3. Exit\n");
+	printf("=============================\n");
+	scanf("%d", &menu);
+	while (getchar() != '\n');
+	printf("=============================\n");
+
+	return menu;
+}
+*/
+
+/*
+int main()
+{
+	int* pnum;
+	int size, maxi = 0;
+	printf("데이터의 개수는? > ");
+	scanf("%d", &size);
+	pnum = (int*)malloc(sizeof(int) * size);
+	for (int i = 0; i < size; i++)
+	{
+		printf("%d번째 수? > ", i + 1);
+		scanf("%d", &pnum[i]);
+		if(pnum[maxi] < pnum[i]) maxi = i;
+	}
+	printf("가장 큰 수는 %d번째 수인 %d입니다.\n", maxi + 1, pnum[maxi]);
+	return 0;
+}
+*/
+/*
+int factorial(int n) {
+	if (n == 1) return 1;					// n이 1인 경우
+	else return (n * factorial(n - 1));		// n이 1보다 큰 경우
+}
+
+int main(void)
+{
+	print("3! is %d\n", factorial(3));
+
+	return 0;
+}
+*/
+// baseball game
+/*
+int main(void)
+{
+	int Num[3];
+	int inNum[3];
+	int strike;
+	int ball;
+	int out;
+
+
+	srand((unsigned int)time(NULL));
+
+	while (1)
+	{
+		for (int i = 0; i < 3; i++)
+			Num[i] = rand() % 10;
+
+		if (Num[0] != Num[1] && Num[1] != Num[2] && Num[0] != Num[2])
+			break;
+	}
+
+	while (1)
+	{
+		printf("Input three numbers : ");
+		scanf("%d %d %d", &inNum[0], &inNum[1], &inNum[2]);
+
+		if (Num[0] == inNum[0])
+			strike++;
+		if (Num[1] == inNum[1])
+			strike++;
+		if (Num[2] == inNum[2])
+			strike++;
+		if (Num[0] == inNum[1] | Num[0] == inNum[2])
+			ball++;
+		if (Num[1] == inNum[0] | Num[1] == inNum[2])
+			ball++;
+		if (Num[2] == inNum[0] | Num[2] == inNum[1])
+			ball++;
+
+		out = 3 - strike - ball;
+		printf("%d Strike, %d Ball, %d Out\n", strike, ball, out);
+
+		if (strike == 3)
+		{
+			printf("Game Over");
+			break;
+		}
+		strike = ball = out = 0;
+	}
+}
+*/

@@ -1,0 +1,7 @@
+hello
+world
+book
+labtop
+monitor
+computer
+speaker
