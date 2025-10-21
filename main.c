@@ -2132,6 +2132,7 @@ int main(void)
 */
 // baseball game
 /*
+MAZE ESCAPE
 int main(void)
 {
 	int Num[3];
@@ -2145,11 +2146,17 @@ int main(void)
 
 	while (1)
 	{
-		for (int i = 0; i < 3; i++)
-			Num[i] = rand() % 10;
+		memu = printMenu();
+		if (menu == 1)
+		{
+			while (1) {
+			for (int i = 0; i < 3; i++)
+				Num[i] = rand() % 10;
 
-		if (Num[0] != Num[1] && Num[1] != Num[2] && Num[0] != Num[2])
+			if (Num[0] != Num[1] && Num[1] != Num[2] && Num[0] != Num[2])
 			break;
+		}
+		printf("%d %d %d\n", Num[0], Num[1], Num[2]);
 	}
 
 	while (1)
@@ -2181,4 +2188,247 @@ int main(void)
 		strike = ball = out = 0;
 	}
 }
+int printMenu()
+{
+	int menu;
+
+	printf("=============================\n");
+	printf("1. Game Start\n");
+	printf("2. Clear\n");
+	printf("3. Exit\n");
+	printf("=============================\n");
+	scanf("%d", &menu);
+	while (getchar() != '\n');
+	printf("=============================\n");
+
+	return menu;
+}
 */
+
+#include <stdio.h>
+
+int printMenu();
+char** loadMap(int *row, int *col);
+void printMap(char** map, int row, int col);
+void startGame(char** map, int row, int col);
+
+int main(void)
+{	
+	char** map = NULL;
+	int row, col;
+	int num;
+
+	while (1)
+	{
+		num = printMenu();
+	
+		switch(num)
+		{
+		case 1:
+			map = loadMap(&row, &col);
+			break;
+		case 2:
+			printMap(map, row, col);
+			break;
+		case 3:
+			startGame(map, row, col);
+			break;
+		default:
+			break;
+
+		}
+	}
+
+	// 동적 할당 시 free를 넣어야 메모리 누수가 발생하지 않는다
+	for (int i=0; i < row; i++)
+		free(map[i]);
+	free(map);
+
+	return 0;
+}
+int printMenu()
+{
+	int num;
+
+	printf("=============================\n");
+	printf("1. Load map\n");
+	printf("2. Show map\n");
+	printf("3. Start Game\n");
+	printf("=============================\n");
+
+	printf("Input number: ");
+	scanf("%d", &num);
+	while (getchar() != '\n');
+	printf("\n");
+
+	return num;
+}
+
+char** loadMap(int *r, int *c)
+{
+	FILE* file = fopen("map.txt", "rt");
+	int row;
+	int col;
+	char** map;
+
+	fscanf(file, "%d", &row);
+	fscanf(file, "%d", &col);
+
+	*r = row;
+	*c = col;
+
+	map = (char**)malloc(col * sizeof(char*));
+	for (int i = 0; i < row; i++)
+		map[i] = (char*)malloc(row * sizeof(char));
+
+	for (int i = 0; i < col; i++)
+		for (int j = 0; j < row; j++)
+			map[i][j] = '\0';
+
+	char ch = fgetc(file);
+
+	for (int i = 0; i < col; i++)
+	{
+		for (int j = 0; j < row + 1; j++)
+		{
+			ch = fgetc(file);
+			if (ch == '\n')
+				break;
+			else
+				map[i][j] = ch;
+		}
+	}
+	return map;
+}
+
+void printMap(char** map, int row, int col)
+{
+	for (int i = 0; i < col; i++)
+	{
+		for (int j = 0; j < row; j++)
+			printf("%c", map[i][j]);
+			printf("\n");		
+	}
+}
+
+void startGame(char** map, int row, int col)
+{
+	int mx, my;
+	char dir;
+	int nMove;
+
+	// S의 위치를 찾아서 mx,my에 기억
+	for (int i = 0; i < col; i++)
+	{
+		for (int j = 0; j < row; j++)
+		{
+			if (map[i][j] == 'S')
+			{
+				mx = j;
+				my = i;
+			}
+		}
+	}
+
+	// 사용자가 입력한 위치로 미로에서 이동 가능 여부 검사
+	while (1)
+	{
+		printf("Input direction and move number: ");
+		scanf(" %c %d", &dir, &nMove);
+		while (getchar() != '\n');
+
+		int nx = mx;
+		int ny = my;
+
+		if (dir == 'u')
+		{
+			if (my - nMove < 0)
+			{
+				printf("Can't move\n");
+				continue;
+			}
+			else if (map[my - nMove][mx] == '#')
+			{
+				printf("Can't move\n");
+				continue;
+			}
+			else if (map[my - nMove][mx] == ' ')
+			{
+				map[my][mx] = ' ';
+				map[my - nMove][mx] = 'S';
+
+				my = my - nMove;
+				mx = mx;
+			}
+		}
+		else if (dir == 'd')
+		{
+			if (my + nMove >= col)
+			{
+				printf("Can't move\n");
+				continue;
+			}
+			else if (map[my + nMove][mx] == '#')
+			{
+				printf("Can't move\n");
+				continue;
+			}
+
+			else if (map[my + nMove][mx] == ' ')
+			{
+				map[my][mx] = ' ';
+				map[my + nMove][mx] = 'S';
+
+				my = my + nMove;
+				mx = mx;
+			}
+		}
+		else if (dir == 'l')
+		{
+			if (mx - nMove < 0)
+			{
+				printf("Can't move\n");
+				continue;
+			}
+			else if (map[my][mx - nMove] == '#')
+			{
+				printf("Can't move\n");
+				continue;
+			}
+
+
+			else if (map[my][mx - nMove] == ' ')
+			{
+				map[my][mx] = ' ';
+				map[my][mx - nMove] = 'S';
+
+				mx = mx - nMove;
+				my = my;
+			}
+		}
+		else if (dir == 'r')
+		{
+			if (mx + nMove >= row)
+			{
+				printf("Can't move\n");
+				continue;
+			}
+			else if (map[my][mx + nMove] == '#')
+			{
+				printf("Can't move\n");
+				continue;
+			}
+			else if (map[my][mx + nMove] == ' ')
+			{
+				map[my][mx] = ' ';
+				map[my][mx + nMove] = 'S';
+
+				mx = mx + nMove;
+				my = my;
+			}
+		}
+		printMap(map, row, col);
+	}
+
+}
+
