@@ -2370,7 +2370,11 @@ void startGame(char** map, int row, int col)
 			}
 			else if (map[mx][my - nMove] == 'E')
 			{
+				map[my][mx] = ' ';
+				map[my - nMove][mx] = 'S';
 				printf("Goal!\n");
+				system("cls");
+				printMap(map, row, col);
 				break;
 			}
 		}
@@ -2397,7 +2401,11 @@ void startGame(char** map, int row, int col)
 			}
 			else if (map[mx][my + nMove] == 'E')
 			{
+				map[my][mx] = ' ';
+				map[my + nMove][mx] = 'S';
 				printf("Goal!\n");
+				system("cls");
+				printMap(map, row, col);
 				break;
 			}
 		}
@@ -2423,7 +2431,11 @@ void startGame(char** map, int row, int col)
 			}
 			else if (map[my][mx - nMove] == 'E')
 			{
+				map[my][mx] = ' ';
+				map[my][mx - nMove] = 'S';
 				printf("Goal!\n");
+				system("cls");
+				printMap(map, row, col);
 				break;
 			}
 		}
@@ -2449,13 +2461,16 @@ void startGame(char** map, int row, int col)
 			}
 			else if (map[my][mx + nMove] == 'E')
 			{
+				map[my][mx] = ' ';
+				map[my][mx + nMove] = 'S';
 				printf("Goal!\n");
+				system("cls");
+				printMap(map, row, col);
 				break;
 			}
 		}
 		system("cls");
 		printMap(map, row, col);
 	}
-
 }
 
