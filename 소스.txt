@@ -1,0 +1,194 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+#pragma warning(disable:4996)
+
+int printMenu();
+char** loadMap(int *row, int *col);
+void printMap(char** map, int row, int col);
+void startGame(char** map, int row, int col);
+
+int main(void)
+{
+	char** map = NULL;
+	int row, col;
+	int num;
+
+	while (1)
+	{
+		num = printMenu();
+
+		switch (num)
+		{
+		case 1:
+			map = loadMap(&row, &col);
+			break;
+		case 2:
+			printMap(map, row, col);
+			break;
+		case 3:
+			startGame(map, row, col);
+			break;
+		default:
+			break;
+		}
+	}
+
+	for (int i = 0; i < col; i++)
+		free(map[i]);
+	free(map);
+	
+
+	return 0;
+}
+
+int printMenu()
+{
+	int num;
+
+	printf("=============================\n");
+	printf("1. Load map\n");
+	printf("2. Show map\n");	
+	printf("3. Start game\n");
+	printf("=============================\n");
+
+	printf("Input number : ");
+	scanf("%d", &num);
+	while (getchar() != '\n');
+	printf("\n");
+
+	return num;
+}
+
+char** loadMap(int *r, int *c)
+{
+	FILE* file = fopen("map.txt", "rt");
+	int row;
+	int col;
+	char** map;
+
+	fscanf(file, "%d", &row);
+	fscanf(file, "%d", &col);
+
+	*r = row;
+	*c = col;
+
+	map = (char**)malloc(col * sizeof(char*));
+	for (int i = 0; i < col; i++)
+		map[i] = (char*)malloc(row * sizeof(char));
+
+	for (int i = 0; i < col; i++)
+		for (int j = 0; j < row; j++)
+			map[i][j] = '\0';
+
+	char ch = fgetc(file);
+
+	for (int i = 0; i < col; i++)
+	{
+		for (int j = 0; j < row + 1; j++)
+		{
+			ch = fgetc(file);
+			if (ch == '\n')
+				break;
+			else
+				map[i][j] = ch;
+		}
+	}
+	return map;
+}
+
+void printMap(char** map, int row, int col)
+{
+	for (int i = 0; i < col; i++)
+	{
+		for (int j = 0; j < row; j++)
+			printf("%c", map[i][j]);
+		printf("\n");
+	}
+}
+
+void startGame(char** map, int row, int col)
+{
+	int mx, my;
+	char dir;
+	int nMove;
+
+	// S의 위치를 찾아서 mx, my에 기억!!
+	for (int i = 0; i < col; i++)
+	{
+		for (int j = 0; j < row; j++)
+		{
+			if (map[i][j] == 'S')
+			{
+				mx = j;
+				my = i;
+			}
+		}
+	}
+
+	system("cls");
+	printMap(map, row, col);
+
+	// 사용자가 입력한 위치로 미로에서 이동 가능 여부 검사
+	while (1)
+	{
+		int ch;
+
+		//printf("Input direction and move number : ");
+		//scanf("%c %d", &dir, &nMove);
+
+		nMove = 1;
+		ch = getch();
+		//while (getchar() != '\n');
+
+		if (ch == 72)
+		{
+			if (my - nMove < 0) {
+				printf("Can not move\n");
+				continue;
+			}
+			else if (map[my - nMove][mx] == '#'){
+				printf("Can not move\n");
+				continue;
+			}
+
+			else if (map[my - nMove][mx] == ' ')
+			{
+				map[my][mx] = ' ';
+				map[my - nMove][mx] = 'S';
+
+				my = my - nMove;
+				mx = mx;
+			}
+		}
+		else if (ch == 80)
+		{
+			if (my + nMove >= col) {
+				printf("Can not move\n");
+				continue;
+			}
+
+			if (map[my + nMove][mx] == ' ')
+			{
+				map[my][mx] = ' ';
+				map[my + nMove][mx] = 'S';
+
+				my = my + nMove;
+				mx = mx;
+			}
+		}
+		else if (ch == 75)
+		{
+
+		}
+		else if (ch == 77)
+		{
+
+		}
+		system("cls");
+		printMap(map, row, col);
+	}
+
+
+}

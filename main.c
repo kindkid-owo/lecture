@@ -2307,7 +2307,7 @@ void printMap(char** map, int row, int col)
 	{
 		for (int j = 0; j < row; j++)
 			printf("%c", map[i][j]);
-			printf("\n");		
+		printf("\n");		
 	}
 }
 
@@ -2330,17 +2330,25 @@ void startGame(char** map, int row, int col)
 		}
 	}
 
+	system("cls");
+	printMap(map, row, col);
+
 	// 사용자가 입력한 위치로 미로에서 이동 가능 여부 검사
 	while (1)
 	{
-		printf("Input direction and move number: ");
-		scanf(" %c %d", &dir, &nMove);
-		while (getchar() != '\n');
+		//printf("Input direction and move number: ");
+		//scanf(" %c %d", &dir, &nMove);
+		/*while (getchar() != '\n');*/
 
-		int nx = mx;
-		int ny = my;
+		int ch;
 
-		if (dir == 'u')
+		nMove = 1;
+		ch = getch();
+
+		//int nx = mx;
+		//int ny = my;
+
+		if (ch == 72)
 		{
 			if (my - nMove < 0)
 			{
@@ -2360,8 +2368,13 @@ void startGame(char** map, int row, int col)
 				my = my - nMove;
 				mx = mx;
 			}
+			else if (map[mx][my - nMove] == 'E')
+			{
+				printf("Goal!\n");
+				break;
+			}
 		}
-		else if (dir == 'd')
+		else if (ch == 80)
 		{
 			if (my + nMove >= col)
 			{
@@ -2382,8 +2395,13 @@ void startGame(char** map, int row, int col)
 				my = my + nMove;
 				mx = mx;
 			}
+			else if (map[mx][my + nMove] == 'E')
+			{
+				printf("Goal!\n");
+				break;
+			}
 		}
-		else if (dir == 'l')
+		else if (ch == 75)
 		{
 			if (mx - nMove < 0)
 			{
@@ -2395,8 +2413,6 @@ void startGame(char** map, int row, int col)
 				printf("Can't move\n");
 				continue;
 			}
-
-
 			else if (map[my][mx - nMove] == ' ')
 			{
 				map[my][mx] = ' ';
@@ -2405,8 +2421,13 @@ void startGame(char** map, int row, int col)
 				mx = mx - nMove;
 				my = my;
 			}
+			else if (map[my][mx - nMove] == 'E')
+			{
+				printf("Goal!\n");
+				break;
+			}
 		}
-		else if (dir == 'r')
+		else if (ch == 77)
 		{
 			if (mx + nMove >= row)
 			{
@@ -2426,7 +2447,13 @@ void startGame(char** map, int row, int col)
 				mx = mx + nMove;
 				my = my;
 			}
+			else if (map[my][mx + nMove] == 'E')
+			{
+				printf("Goal!\n");
+				break;
+			}
 		}
+		system("cls");
 		printMap(map, row, col);
 	}
 
